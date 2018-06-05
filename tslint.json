@@ -4,6 +4,12 @@
         "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
     },
     "rules": {
-        "jsx-boolean-value": false
+        "jsx-boolean-value": false,
+        "ordered-imports": false,
+        "object-literal-sort-keys": false,
+        "jsx-no-lambda": false,
+        "no-var-requires": false,
+        "max-classes-per-file": false,
+        "no-shadowed-variable": false
     }
 }
