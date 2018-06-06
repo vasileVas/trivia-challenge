@@ -16,12 +16,9 @@ export interface IProps {
 @observer
 class PlayScreen extends React.Component<IProps> {
     public render() {
-        // tslint:disable-next-line:no-console
-        console.log(this.props);
-
         const { questions, currentQuestion, checkResponse } = this.props;
 
-        if (!questions) {
+        if (questions.length === 0 || !questions[currentQuestion]) {
             return null;
         }
 
@@ -32,13 +29,11 @@ class PlayScreen extends React.Component<IProps> {
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
                         <span className="card-title">{category}</span>
-                        <p>
-                            {question} {id}
-                        </p>
+                        <p>{question}</p>
                     </div>
                     <div className="card-action">
-                        <a onClick={() => checkResponse(id, 'true')}>True</a>
-                        <a onClick={() => checkResponse(id, 'false')}>False</a>
+                        <a onClick={() => checkResponse(id, 'True')}>True</a>
+                        <a onClick={() => checkResponse(id, 'False')}>False</a>
                     </div>
                 </div>
             </div>

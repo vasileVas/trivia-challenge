@@ -4,6 +4,7 @@ export const TriviaContext = React.createContext({});
 
 export interface IProps {
     children(context: any): any;
+    history?: any;
 }
 
 export const TriviaConsumer: React.SFC<IProps> = props => (

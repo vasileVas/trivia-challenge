@@ -10,6 +10,7 @@
         "jsx-no-lambda": false,
         "no-var-requires": false,
         "max-classes-per-file": false,
-        "no-shadowed-variable": false
+        "no-shadowed-variable": false,
+        "member-ordering": false
     }
 }

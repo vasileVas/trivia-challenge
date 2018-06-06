@@ -1,5 +1,20 @@
 import * as React from 'react';
 
-const ScoreScreen: React.SFC = () => <h1>Score Screen</h1>;
+export interface IProps {
+    correctAnswers: number;
+    numberOfQuestions: number;
+    questions: any;
+}
+
+const ScoreScreen: React.SFC<IProps> = ({
+    correctAnswers,
+    numberOfQuestions
+}) => (
+    <>
+        <h1>
+            You scored {correctAnswers}/{numberOfQuestions}
+        </h1>
+    </>
+);
 
 export default ScoreScreen;
