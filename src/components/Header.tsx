@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { HOME_ROUTE } from '../stores/TriviaStore';
 
 export default class Header extends React.Component {
     public render() {
@@ -7,17 +8,9 @@ export default class Header extends React.Component {
             <div className="header">
                 <nav>
                     <div className="nav-wrapper">
-                        <Link to="/" className="brand-logo">
+                        <Link to={HOME_ROUTE} className="brand-logo">
                             <h1>Trivia Challenge</h1>
                         </Link>
-                        <ul
-                            id="nav-mobile"
-                            className="right hide-on-med-and-down"
-                        >
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                        </ul>
                     </div>
                 </nav>
             </div>

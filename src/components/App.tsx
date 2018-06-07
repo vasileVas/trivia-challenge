@@ -1,14 +1,19 @@
 import * as React from 'react';
+import { observer } from 'mobx-react';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
-import { HashRouter as Router, Route } from 'react-router-dom';
-import HomeScreenContainer from '../containers/HomeScreenContainer';
-import Header from './Header';
-
-import { TriviaStore } from '../stores/TriviaStore';
 import Api from '../api';
+import {
+    TriviaStore,
+    HOME_ROUTE,
+    PLAY_ROUTE,
+    SCORE_ROUTE
+} from '../stores/TriviaStore';
+
+import Header from './Header';
+import HomeScreenContainer from '../containers/HomeScreenContainer';
 import PlayScreen from './PlayScreen';
-import { observer } from 'mobx-react';
 import ScoreScreen from './ScoreScreen';
 
 const api = new Api();
@@ -22,7 +27,7 @@ class App extends React.Component {
                     <Header />
                     <Route
                         exact
-                        path="/"
+                        path={HOME_ROUTE}
                         component={({ history }: any) => (
                             <HomeScreenContainer
                                 store={triviaStore}
@@ -31,7 +36,7 @@ class App extends React.Component {
                         )}
                     />
                     <Route
-                        path="/play"
+                        path={PLAY_ROUTE}
                         component={observer(() => (
                             <PlayScreen
                                 questions={triviaStore.triviaQuestions}
@@ -44,7 +49,7 @@ class App extends React.Component {
                         ))}
                     />
                     <Route
-                        path="/score"
+                        path={SCORE_ROUTE}
                         component={observer(() => (
                             <ScoreScreen
                                 correctAnswers={triviaStore.correctAnswer}

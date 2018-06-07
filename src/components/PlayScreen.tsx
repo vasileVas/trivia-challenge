@@ -5,6 +5,8 @@ export interface IQuestion {
     id: string;
     category: string;
     question: string;
+    type: 'boolean' | 'multiple';
+    availableAnswers: string[];
 }
 
 export interface IProps {
@@ -28,7 +30,9 @@ class PlayScreen extends React.Component<IProps> {
             return null;
         }
 
-        const { id, category, question } = questions[currentQuestion - 1];
+        const { id, category, question, availableAnswers, type } = questions[
+            currentQuestion - 1
+        ];
 
         return (
             <div className="col s12 m6">
@@ -38,8 +42,12 @@ class PlayScreen extends React.Component<IProps> {
                         <p>{question}</p>
                     </div>
                     <div className="card-action">
-                        <a onClick={() => checkResponse(id, 'True')}>True</a>
-                        <a onClick={() => checkResponse(id, 'False')}>False</a>
+                        {type === 'boolean' &&
+                            availableAnswers.map(answer => (
+                                <a onClick={() => checkResponse(id, answer)}>
+                                    {answer}
+                                </a>
+                            ))}
                     </div>
                 </div>
                 <div>

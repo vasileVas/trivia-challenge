@@ -2,9 +2,13 @@ import { observable, action, computed, reaction } from 'mobx';
 import Api from '../api';
 const uuidv1 = require('uuid/v1');
 
+export const HOME_ROUTE = '/';
+export const PLAY_ROUTE = '/play';
+export const SCORE_ROUTE = '/score';
+
 export interface IRawQuestion {
     category: string;
-    type: string;
+    type: 'boolean' | 'multiple';
     difficulty: string;
     question: string;
     correct_answer: string;
@@ -15,8 +19,10 @@ export interface IQuestion {
     id: string;
     category: string;
     question: string;
+    type: 'boolean' | 'multiple';
     correct_answer: string;
     respondedCorrectly: boolean;
+    availableAnswers: string[];
 }
 
 export class TriviaStore {
@@ -27,7 +33,7 @@ export class TriviaStore {
     constructor(api: Api) {
         this.api = api;
 
-        reaction(() => this.triviaEnded, () => this.changeHash('/score'));
+        reaction(() => this.triviaEnded, () => this.changeHash(SCORE_ROUTE));
     }
 
     public changeHash = (hash: string) => (window.location.hash = hash);
@@ -41,7 +47,7 @@ export class TriviaStore {
 
     public playAgain = () => {
         this.resetTrivia();
-        this.changeHash('/');
+        this.changeHash(HOME_ROUTE);
     };
 
     private fetchQuestions = async () => {
@@ -58,11 +64,21 @@ export class TriviaStore {
 
     @computed
     get triviaQuestions() {
-        return this.questions.map(({ id, category, question }: IQuestion) => ({
-            id,
-            category,
-            question
-        }));
+        return this.questions.map(
+            ({
+                id,
+                category,
+                question,
+                availableAnswers,
+                type
+            }: IQuestion) => ({
+                id,
+                category,
+                question,
+                type,
+                availableAnswers
+            })
+        );
     }
 
     @computed
@@ -113,12 +129,32 @@ export class TriviaStore {
             id: uuidv1(),
             question: this.sanitizeText(question),
             ...rawQuestion,
-            respondedCorrectly: false
+            respondedCorrectly: false,
+            availableAnswers: this.mergeAnswers(
+                rawQuestion.correct_answer,
+                rawQuestion.incorrect_answers
+            )
         }));
         this.currentQuestion = 0;
     };
 
     private sanitizeText(text: string) {
         return text.replace(/&#039;/g, "'").replace(/&quot;/g, '"');
+    }
+
+    private mergeAnswers(
+        correctAnswers: string | string[],
+        incorrectAnswers: string | string[]
+    ) {
+        const correctAnswersArray =
+            typeof correctAnswers === 'string'
+                ? [correctAnswers]
+                : correctAnswers;
+        const incorrectAnswersArray =
+            typeof incorrectAnswers === 'string'
+                ? [incorrectAnswers]
+                : incorrectAnswers;
+
+        return correctAnswersArray.concat(incorrectAnswersArray).sort();
     }
 }
