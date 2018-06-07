@@ -10,10 +10,20 @@ export default class HomeScreenContainer extends React.Component<{
     history: any;
 }> {
     private startTrivia = () => {
-        this.props.store.fetchQuestions();
+        this.props.store.startTrivia();
+        this.props.history.push('/play');
+    };
+    private continueTrivia = () => {
         this.props.history.push('/play');
     };
     public render() {
-        return <HomeScreen onStart={this.startTrivia} />;
+        return (
+            <HomeScreen
+                onStart={this.startTrivia}
+                challengeStarted={Boolean(this.props.store.currentQuestion)}
+                numberOfQuestions={this.props.store.numberOfQuestions}
+                onContinue={this.continueTrivia}
+            />
+        );
     }
 }

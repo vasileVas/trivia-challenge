@@ -8,7 +8,7 @@ export default class Header extends React.Component {
                 <nav>
                     <div className="nav-wrapper">
                         <Link to="/" className="brand-logo">
-                            Trivia Challenge
+                            <h1>Trivia Challenge</h1>
                         </Link>
                         <ul
                             id="nav-mobile"
@@ -16,12 +16,6 @@ export default class Header extends React.Component {
                         >
                             <li>
                                 <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/play">Play</Link>
-                            </li>
-                            <li>
-                                <Link to="/score">Score</Link>
                             </li>
                         </ul>
                     </div>

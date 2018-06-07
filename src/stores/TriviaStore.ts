@@ -27,17 +27,24 @@ export class TriviaStore {
     constructor(api: Api) {
         this.api = api;
 
-        reaction(
-            () => this.stopGame,
-            () => {
-                window.location.hash = '/score';
-            }
-        );
+        reaction(() => this.triviaEnded, () => this.changeHash('/score'));
     }
 
-    public fetchQuestions = async () => {
-        this.resetQuestions();
+    public changeHash = (hash: string) => (window.location.hash = hash);
 
+    @action
+    public startTrivia = async () => {
+        this.resetTrivia();
+        await this.fetchQuestions();
+        this.currentQuestion++;
+    };
+
+    public playAgain = () => {
+        this.resetTrivia();
+        this.changeHash('/');
+    };
+
+    private fetchQuestions = async () => {
         const { response_code, results } = await this.api.fetchQuestions({
             amount: 3
         });
@@ -64,10 +71,11 @@ export class TriviaStore {
     }
 
     @computed
-    get stopGame() {
+    get triviaEnded() {
         const { numberOfQuestions, currentQuestion } = this;
         return (
-            Boolean(numberOfQuestions) && numberOfQuestions === currentQuestion
+            Boolean(numberOfQuestions) &&
+            numberOfQuestions === currentQuestion - 1
         );
     }
 
@@ -86,9 +94,6 @@ export class TriviaStore {
             throw new Error('Should match id when responding');
         }
 
-        // tslint:disable-next-line:no-console
-        console.log('answeredQuestion', answeredQuestion, response);
-
         if (answeredQuestion.correct_answer === response) {
             answeredQuestion.respondedCorrectly = true;
         }
@@ -97,17 +102,23 @@ export class TriviaStore {
     };
 
     @action
-    private resetQuestions = () => {
+    private resetTrivia = () => {
         this.questions = [];
+        this.currentQuestion = 0;
     };
 
     @action
     private setQuestions = (questions: IRawQuestion[]) => {
-        this.questions = questions.map(rawQuestion => ({
+        this.questions = questions.map(({ question, ...rawQuestion }) => ({
             id: uuidv1(),
+            question: this.sanitizeText(question),
             ...rawQuestion,
             respondedCorrectly: false
         }));
         this.currentQuestion = 0;
     };
+
+    private sanitizeText(text: string) {
+        return text.replace(/&#039;/g, "'").replace(/&quot;/g, '"');
+    }
 }

@@ -36,6 +36,9 @@ class App extends React.Component {
                             <PlayScreen
                                 questions={triviaStore.triviaQuestions}
                                 currentQuestion={triviaStore.currentQuestion}
+                                numberOfQuestions={
+                                    triviaStore.numberOfQuestions
+                                }
                                 checkResponse={triviaStore.checkResponse}
                             />
                         ))}
@@ -49,6 +52,7 @@ class App extends React.Component {
                                     triviaStore.numberOfQuestions
                                 }
                                 questions={triviaStore.questions}
+                                playAgain={triviaStore.playAgain}
                             />
                         ))}
                     />

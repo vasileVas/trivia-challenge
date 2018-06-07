@@ -10,19 +10,25 @@ export interface IQuestion {
 export interface IProps {
     questions: IQuestion[];
     currentQuestion: number;
+    numberOfQuestions: number;
     checkResponse(id: string, response: string): void;
 }
 
 @observer
 class PlayScreen extends React.Component<IProps> {
     public render() {
-        const { questions, currentQuestion, checkResponse } = this.props;
+        const {
+            questions,
+            currentQuestion,
+            numberOfQuestions,
+            checkResponse
+        } = this.props;
 
-        if (questions.length === 0 || !questions[currentQuestion]) {
+        if (questions.length === 0 || !questions[currentQuestion - 1]) {
             return null;
         }
 
-        const { id, category, question } = questions[currentQuestion];
+        const { id, category, question } = questions[currentQuestion - 1];
 
         return (
             <div className="col s12 m6">
@@ -35,6 +41,9 @@ class PlayScreen extends React.Component<IProps> {
                         <a onClick={() => checkResponse(id, 'True')}>True</a>
                         <a onClick={() => checkResponse(id, 'False')}>False</a>
                     </div>
+                </div>
+                <div>
+                    Progress: {currentQuestion}/{numberOfQuestions}
                 </div>
             </div>
         );
