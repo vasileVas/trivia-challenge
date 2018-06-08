@@ -38,19 +38,25 @@ class PlayScreen extends React.Component<IProps> {
             <div className="col s12 m6">
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
-                        <span className="card-title">{category}</span>
-                        <p>{question}</p>
+                        <span className="card-title" data-testid="category">
+                            {category}
+                        </span>
+                        <p data-testid="question">{question}</p>
                     </div>
                     <div className="card-action">
                         {type === 'boolean' &&
                             availableAnswers.map(answer => (
-                                <a onClick={() => checkResponse(id, answer)}>
+                                <a
+                                    onClick={() => checkResponse(id, answer)}
+                                    key={answer}
+                                    data-testid={`answer-${answer}`}
+                                >
                                     {answer}
                                 </a>
                             ))}
                     </div>
                 </div>
-                <div>
+                <div data-testid="progress">
                     Progress: {currentQuestion}/{numberOfQuestions}
                 </div>
             </div>

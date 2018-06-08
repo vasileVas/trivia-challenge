@@ -22,12 +22,16 @@ export const QuestionEvaluation: React.SFC<IProps> = ({
     question,
     respondedCorrectly
 }) => (
-    <Question>
+    <Question data-testid="score-question">
         {respondedCorrectly ? (
-            <i className="material-icons">add</i>
+            <i className="material-icons" data-testid="score-success">
+                add
+            </i>
         ) : (
-            <i className="material-icons">remove</i>
+            <i className="material-icons" data-testid="score-fail">
+                remove
+            </i>
         )}
-        <h3>{question}</h3>
+        <h3 data-testid="score-question-text">{question}</h3>
     </Question>
 );

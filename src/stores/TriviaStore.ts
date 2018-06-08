@@ -52,7 +52,7 @@ export class TriviaStore {
 
     private fetchQuestions = async () => {
         const { response_code, results } = await this.api.fetchQuestions({
-            amount: 3
+            amount: 10
         });
 
         if (response_code !== 0) {

@@ -31,7 +31,7 @@ const HomeScreen: React.SFC<IProps> = ({
     onStart,
     onContinue
 }) => (
-    <Home>
+    <Home data-testid="home-screen">
         <h2>Welcome to the Trivia Challenge</h2>
 
         <h3>
@@ -40,13 +40,18 @@ const HomeScreen: React.SFC<IProps> = ({
 
         <h3>Can you score 100% ?</h3>
 
-        <a className="waves-effect waves-light btn-large" onClick={onStart}>
+        <a
+            className="waves-effect waves-light btn-large"
+            onClick={onStart}
+            data-testid="start-button"
+        >
             Begin
         </a>
         {challengeStarted && (
             <a
                 className="waves-effect waves-light btn-large"
                 onClick={onContinue}
+                data-testid="continue-button"
             >
                 Continue
             </a>

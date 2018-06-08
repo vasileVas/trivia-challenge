@@ -26,7 +26,7 @@ const ScoreScreen: React.SFC<IProps> = ({
     playAgain
 }) => (
     <Score>
-        <h2>
+        <h2 data-testid={'final-score'}>
             You scored {correctAnswers}/{numberOfQuestions}
         </h2>
         {questions.map((question: IQuestion) => (
@@ -37,7 +37,11 @@ const ScoreScreen: React.SFC<IProps> = ({
             />
         ))}
 
-        <a className="waves-effect waves-light btn" onClick={playAgain}>
+        <a
+            className="waves-effect waves-light btn"
+            onClick={playAgain}
+            data-testid={'play-again'}
+        >
             Play again
         </a>
     </Score>
