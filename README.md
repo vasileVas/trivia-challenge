@@ -1,3 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-trivia game readme page ...
+## Installation
+
+```
+    yarn install
+```
+
+## Run trivia challenge
+
+```
+    yarn start
+```
+
+## Run tests
+
+```
+    yarn test
+```
