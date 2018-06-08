@@ -21,7 +21,7 @@ export default class HomeScreenContainer extends React.Component<{
             <HomeScreen
                 onStart={this.startTrivia}
                 challengeStarted={Boolean(this.props.store.currentQuestion)}
-                numberOfQuestions={this.props.store.numberOfQuestions}
+                numberOfQuestions={10}
                 onContinue={this.continueTrivia}
             />
         );

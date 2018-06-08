@@ -23,44 +23,48 @@ class App extends React.Component {
     public render() {
         return (
             <Router>
-                <div className="App">
+                <div className="App container">
                     <Header />
-                    <Route
-                        exact
-                        path={HOME_ROUTE}
-                        component={({ history }: any) => (
-                            <HomeScreenContainer
-                                store={triviaStore}
-                                history={history}
-                            />
-                        )}
-                    />
-                    <Route
-                        path={PLAY_ROUTE}
-                        component={observer(() => (
-                            <PlayScreen
-                                questions={triviaStore.triviaQuestions}
-                                currentQuestion={triviaStore.currentQuestion}
-                                numberOfQuestions={
-                                    triviaStore.numberOfQuestions
-                                }
-                                checkResponse={triviaStore.checkResponse}
-                            />
-                        ))}
-                    />
-                    <Route
-                        path={SCORE_ROUTE}
-                        component={observer(() => (
-                            <ScoreScreen
-                                correctAnswers={triviaStore.correctAnswer}
-                                numberOfQuestions={
-                                    triviaStore.numberOfQuestions
-                                }
-                                questions={triviaStore.questions}
-                                playAgain={triviaStore.playAgain}
-                            />
-                        ))}
-                    />
+                    <div className="container">
+                        <Route
+                            exact
+                            path={HOME_ROUTE}
+                            component={({ history }: any) => (
+                                <HomeScreenContainer
+                                    store={triviaStore}
+                                    history={history}
+                                />
+                            )}
+                        />
+                        <Route
+                            path={PLAY_ROUTE}
+                            component={observer(() => (
+                                <PlayScreen
+                                    questions={triviaStore.triviaQuestions}
+                                    currentQuestion={
+                                        triviaStore.currentQuestion
+                                    }
+                                    numberOfQuestions={
+                                        triviaStore.numberOfQuestions
+                                    }
+                                    checkResponse={triviaStore.checkResponse}
+                                />
+                            ))}
+                        />
+                        <Route
+                            path={SCORE_ROUTE}
+                            component={observer(() => (
+                                <ScoreScreen
+                                    correctAnswers={triviaStore.correctAnswer}
+                                    numberOfQuestions={
+                                        triviaStore.numberOfQuestions
+                                    }
+                                    questions={triviaStore.questions}
+                                    playAgain={triviaStore.playAgain}
+                                />
+                            ))}
+                        />
+                    </div>
                 </div>
             </Router>
         );

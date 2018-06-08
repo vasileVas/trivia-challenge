@@ -1,6 +1,16 @@
 import * as React from 'react';
 import { IQuestion } from '../stores/TriviaStore';
 import { QuestionEvaluation } from './QuestionEvaluation';
+import styled from 'styled-components';
+
+const Score = styled.div`
+    h2 {
+        font-size: 25px;
+    }
+    a {
+        margin-top: 20px;
+    }
+`;
 
 export interface IProps {
     correctAnswers: number;
@@ -15,10 +25,10 @@ const ScoreScreen: React.SFC<IProps> = ({
     questions,
     playAgain
 }) => (
-    <>
-        <h1>
+    <Score>
+        <h2>
             You scored {correctAnswers}/{numberOfQuestions}
-        </h1>
+        </h2>
         {questions.map((question: IQuestion) => (
             <QuestionEvaluation
                 key={question.id}
@@ -30,7 +40,7 @@ const ScoreScreen: React.SFC<IProps> = ({
         <a className="waves-effect waves-light btn" onClick={playAgain}>
             Play again
         </a>
-    </>
+    </Score>
 );
 
 export default ScoreScreen;

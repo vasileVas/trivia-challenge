@@ -1,4 +1,22 @@
 import * as React from 'react';
+import styled from 'styled-components';
+
+const Home = styled.div`
+    h2,
+    h3 {
+        margin-bottom: 40px;
+    }
+    h2 {
+        margin-top: 40px;
+        font-size: 25px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+    a {
+        margin-right: 10px;
+    }
+`;
 
 export interface IProps {
     challengeStarted: boolean;
@@ -13,14 +31,14 @@ const HomeScreen: React.SFC<IProps> = ({
     onStart,
     onContinue
 }) => (
-    <>
+    <Home>
         <h2>Welcome to the Trivia Challenge</h2>
 
         <h3>
             You will presented with {numberOfQuestions} True or False questions
         </h3>
 
-        <h3>Can you score 100%</h3>
+        <h3>Can you score 100% ?</h3>
 
         <a className="waves-effect waves-light btn-large" onClick={onStart}>
             Begin
@@ -33,7 +51,7 @@ const HomeScreen: React.SFC<IProps> = ({
                 Continue
             </a>
         )}
-    </>
+    </Home>
 );
 
 export default HomeScreen;
